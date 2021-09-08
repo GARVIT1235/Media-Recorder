@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:camera/camera.dart';
 import 'videoView.dart';
 import 'cameraView.dart';
@@ -13,11 +12,10 @@ List<CameraDescription> cameras;
 
 class _VideoControllerState extends State<VideoController> {
   CameraController _cameraController;
-  Future<void> cameraValue;
-  bool isRecoring = false;
+  Future<dynamic> cameraValue;
+  bool VideoOn = false;
   bool flash = false;
-  bool iscamerafront = true;
-  double transform = 0;
+  bool CameraFront = true;
 
   @override
   Future<void> initState() async {
@@ -31,6 +29,18 @@ class _VideoControllerState extends State<VideoController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        leading: IconButton(
+            icon: Icon(
+              Icons.backspace_outlined,
+              size: 27,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+      ),
       body: Stack(
         children: [
           FutureBuilder(
@@ -43,15 +53,16 @@ class _VideoControllerState extends State<VideoController> {
                       child: CameraPreview(_cameraController));
                 } else {
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: Image.asset('assets/images/video.jpg',
+                        fit: BoxFit.cover),
                   );
                 }
               }),
           Positioned(
             bottom: 0.0,
             child: Container(
-              color: Colors.black,
-              padding: EdgeInsets.only(top: 5, bottom: 5),
+              color: Colors.transparent,
+              padding: EdgeInsets.only(top: 10, bottom: 10),
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
@@ -78,14 +89,14 @@ class _VideoControllerState extends State<VideoController> {
                         onLongPress: () async {
                           await _cameraController.startVideoRecording();
                           setState(() {
-                            isRecoring = true;
+                            VideoOn = true;
                           });
                         },
                         onDoubleTap: () async {
                           XFile videopath =
                               await _cameraController.stopVideoRecording();
                           setState(() {
-                            isRecoring = false;
+                            VideoOn = false;
                           });
                           Navigator.push(
                               context,
@@ -94,36 +105,40 @@ class _VideoControllerState extends State<VideoController> {
                                         path: videopath.path,
                                       )));
                         },
-                        onTap: () {
-                          if (!isRecoring) takePhoto(context);
+                        onTap: () async {
+                          if (!VideoOn) {
+                            XFile file = await _cameraController.takePicture();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (builder) => CameraViewPage(
+                                          path: file.path,
+                                        )));
+                          }
                         },
-                        child: isRecoring
+                        child: VideoOn
                             ? Icon(
-                                Icons.radio_button_on,
+                                Icons.radio_button_checked,
                                 color: Colors.red,
                                 size: 80,
                               )
                             : Icon(
-                                Icons.panorama_fish_eye,
+                                Icons.radio_button_off,
                                 color: Colors.white,
                                 size: 70,
                               ),
                       ),
                       IconButton(
-                          icon: Transform.rotate(
-                            angle: transform,
-                            child: Icon(
-                              Icons.flip_camera_ios,
-                              color: Colors.white,
-                              size: 28,
-                            ),
+                          icon: Icon(
+                            Icons.flip_camera_android_sharp,
+                            color: Colors.white,
+                            size: 28,
                           ),
                           onPressed: () async {
                             setState(() {
-                              iscamerafront = !iscamerafront;
-                              transform = transform + pi;
+                              CameraFront = !CameraFront;
                             });
-                            int cameraPos = iscamerafront ? 0 : 1;
+                            int cameraPos = CameraFront ? 0 : 1;
                             _cameraController = CameraController(
                                 cameras[cameraPos], ResolutionPreset.high);
                             cameraValue = _cameraController.initialize();
@@ -131,10 +146,10 @@ class _VideoControllerState extends State<VideoController> {
                     ],
                   ),
                   SizedBox(
-                    height: 4,
+                    height: 10,
                   ),
                   Text(
-                    "Hold for Video, tap for photo",
+                    "Tap for photo,Hold for Video,",
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -147,15 +162,5 @@ class _VideoControllerState extends State<VideoController> {
         ],
       ),
     );
-  }
-
-  void takePhoto(BuildContext context) async {
-    XFile file = await _cameraController.takePicture();
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (builder) => CameraViewPage(
-                  path: file.path,
-                )));
   }
 }
