@@ -22,7 +22,7 @@ class _VideoControllerState extends State<VideoController> {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
     cameras = await availableCameras();
-    _cameraController = CameraController(cameras[0], ResolutionPreset.high);
+    _cameraController = CameraController(cameras[1], ResolutionPreset.high);
     cameraValue = _cameraController.initialize();
   }
 

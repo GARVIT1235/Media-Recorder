@@ -22,7 +22,12 @@ class _AudioState extends State<Audio> {
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
         child: FloatingActionButton(
-          child: Icon(Icons.play_arrow,color: Colors.white),
+          child: Icon(
+            Icons.play_arrow,
+            color: Colors.white,
+            size: 50,
+          ),
+          backgroundColor: Colors.transparent,
           onPressed: () {
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => AudioController()));

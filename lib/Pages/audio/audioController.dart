@@ -8,7 +8,6 @@ class AudioController extends StatefulWidget {
 class _AudioControllerState extends State<AudioController> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Text("Comming Soon");
   }
 }

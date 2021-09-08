@@ -8,7 +8,6 @@ class ScreenController extends StatefulWidget {
 class _ScreenControllerState extends State<ScreenController> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Text("Comming Soon");
   }
 }
