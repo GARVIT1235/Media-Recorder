@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'Pages/home.dart';
 import 'Pages/splashScreen.dart';
 
@@ -16,15 +15,13 @@ class MyApp extends StatelessWidget {
         title: 'Covid_19_Awareness',
         themeMode: ThemeMode.light,
         theme: ThemeData(
-            brightness: Brightness.light,
-            primarySwatch: Colors.deepPurple,
-            textTheme:
-                TextTheme(bodyText2: GoogleFonts.quicksand(fontSize: 14.0))),
+          brightness: Brightness.light,
+          primarySwatch: Colors.deepPurple,
+        ),
         darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            primarySwatch: Colors.purple,
-            textTheme:
-                TextTheme(bodyText2: GoogleFonts.bitter(fontSize: 14.0))),
+          brightness: Brightness.dark,
+          primarySwatch: Colors.purple,
+        ),
         debugShowCheckedModeBanner: false,
         routes: <String, WidgetBuilder>{
           '/': (BuildContext context) => SplashPage(),

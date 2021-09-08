@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:camera/camera.dart';
-import 'package:media_recorder/Service/CameraView.dart';
-import 'package:media_recorder/Service/VideoView.dart';
+import 'videoView.dart';
+import 'cameraView.dart';
 
-class Video extends StatefulWidget {
+class VideoController extends StatefulWidget {
   @override
-  _VideoState createState() => _VideoState();
+  _VideoControllerState createState() => _VideoControllerState();
 }
 
 List<CameraDescription> cameras;
 
-class _VideoState extends State<Video> {
+class _VideoControllerState extends State<VideoController> {
   CameraController _cameraController;
   Future<void> cameraValue;
   bool isRecoring = false;
@@ -20,16 +20,12 @@ class _VideoState extends State<Video> {
   double transform = 0;
 
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
+    WidgetsFlutterBinding.ensureInitialized();
+    cameras = await availableCameras();
     _cameraController = CameraController(cameras[0], ResolutionPreset.high);
     cameraValue = _cameraController.initialize();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _cameraController.dispose();
   }
 
   @override
@@ -85,7 +81,7 @@ class _VideoState extends State<Video> {
                             isRecoring = true;
                           });
                         },
-                        onLongPressUp: () async {
+                        onDoubleTap: () async {
                           XFile videopath =
                               await _cameraController.stopVideoRecording();
                           setState(() {

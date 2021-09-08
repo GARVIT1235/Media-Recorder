@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'screenRecording.dart';
-import 'video.dart';
-import 'audio.dart';
+import 'screen/screenRecording.dart';
+import 'video/videoPage.dart';
+import 'audio/audio.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,36 +14,39 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.video_call),
-              label: 'Video',
-              backgroundColor: Colors.deepPurple,
+    return SafeArea(
+      child: Scaffold(
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.video_call, color: Colors.grey),
+                label: 'Video',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.multitrack_audio, color: Colors.grey),
+                label: 'Audio',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.screen_share, color: Colors.grey),
+                label: 'Screen',
+              )
+            ],
+            currentIndex: selectedIndex,
+            selectedItemColor: Colors.white,
+            backgroundColor: Colors.black,
+            onTap: _onItemTapped,
+            elevation: 10,
+          ),
+          appBar: AppBar(
+            title: Text(
+              'Home',
+              style: TextStyle(color: Colors.white),
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.multitrack_audio),
-              label: 'Audio',
-              backgroundColor: Colors.deepPurple,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.screen_share),
-              label: 'Screen',
-              backgroundColor: Colors.deepPurple,
-            )
-          ],
-          currentIndex: selectedIndex,
-          selectedItemColor: Colors.white,
-          backgroundColor: Colors.transparent,
-          onTap: _onItemTapped,
-        ),
-        appBar: AppBar(
-          title: Text('Home'),
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-        ),
-        body: list[selectedIndex]);
+            centerTitle: true,
+            backgroundColor: Colors.black,
+          ),
+          body: list[selectedIndex]),
+    );
   }
 
   void _onItemTapped(int index) {
