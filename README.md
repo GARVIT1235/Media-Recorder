@@ -1,4 +1,4 @@
-# media_recorder
+# Media_Recorder
 
 A new Flutter project.
 
