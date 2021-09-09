@@ -48,19 +48,19 @@ class _AudioControllerState extends State<AudioController> {
               SizedBox(height: 20),
               Container(
                 child: CircleAvatar(
-                  backgroundColor: Colors.red,
+                  backgroundColor: isRecording ? Colors.green : Colors.red,
                   radius: 50,
                   child: IconButton(
                     icon: isRecording
                         ? Icon(
                             Icons.stop,
                             color: Colors.white,
-                            size: 50,
+                            size: 30,
                           )
                         : Icon(
                             Icons.mic,
                             color: Colors.white,
-                            size: 50,
+                            size: 30,
                           ),
                     onPressed: () {
                       setState(() {
