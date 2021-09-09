@@ -32,7 +32,8 @@ class _AudioControllerState extends State<AudioController> {
               }),
         ),
         body: Container(
-            padding: EdgeInsets.all(20),
+            padding:
+                EdgeInsets.only(top: (MediaQuery.of(context).size.height) / 3),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             alignment: Alignment.center,
@@ -48,18 +49,18 @@ class _AudioControllerState extends State<AudioController> {
               Container(
                 child: CircleAvatar(
                   backgroundColor: Colors.red,
-                  radius: 30,
+                  radius: 50,
                   child: IconButton(
                     icon: isRecording
                         ? Icon(
                             Icons.stop,
                             color: Colors.white,
-                            size: 30,
+                            size: 50,
                           )
                         : Icon(
                             Icons.mic,
                             color: Colors.white,
-                            size: 30,
+                            size: 50,
                           ),
                     onPressed: () {
                       setState(() {
