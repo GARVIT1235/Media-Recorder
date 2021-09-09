@@ -20,6 +20,7 @@ class _AudioControllerState extends State<AudioController> {
     return Scaffold(
         backgroundColor: Color(0xff172133),
         appBar: AppBar(
+          elevation: 0,
           backgroundColor: Color(0xff172133),
           leading: IconButton(
               icon: Icon(
@@ -34,7 +35,7 @@ class _AudioControllerState extends State<AudioController> {
             padding: EdgeInsets.all(20),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.center,
             child: Column(children: [
               Text(
                 time,
@@ -43,6 +44,7 @@ class _AudioControllerState extends State<AudioController> {
                   fontSize: 20,
                 ),
               ),
+              SizedBox(height: 20),
               Container(
                 child: CircleAvatar(
                   backgroundColor: Colors.red,
@@ -67,6 +69,7 @@ class _AudioControllerState extends State<AudioController> {
                   ),
                 ),
               ),
+              SizedBox(height: 20),
               isRecording
                   ? Text(
                       "STOP Recording",
