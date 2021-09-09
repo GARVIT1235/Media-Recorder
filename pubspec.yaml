@@ -16,9 +16,8 @@ dependencies:
   animated_text_kit: ^4.2.1
   camera:
   video_player:
-  audioplayers:
-  flutter_audio_recorder:
   path_provider:
+  permission_handler:
 
 dev_dependencies:
   flutter_test:

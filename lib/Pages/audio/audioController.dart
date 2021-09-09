@@ -6,8 +6,76 @@ class AudioController extends StatefulWidget {
 }
 
 class _AudioControllerState extends State<AudioController> {
+  bool isRecording = false;
+  final path = 'audio.mp3';
+  String time = " 00:00 ";
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Text("Comming Soon");
+    return Scaffold(
+        backgroundColor: Color(0xff172133),
+        appBar: AppBar(
+          backgroundColor: Color(0xff172133),
+          leading: IconButton(
+              icon: Icon(
+                Icons.backspace_outlined,
+                size: 27,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
+        ),
+        body: Container(
+            padding: EdgeInsets.all(20),
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.bottomCenter,
+            child: Column(children: [
+              Text(
+                time,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+              Container(
+                child: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 30,
+                  child: IconButton(
+                    icon: isRecording
+                        ? Icon(
+                            Icons.stop,
+                            color: Colors.white,
+                            size: 30,
+                          )
+                        : Icon(
+                            Icons.mic,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                    onPressed: () {
+                      setState(() {
+                        isRecording = !isRecording;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              isRecording
+                  ? Text(
+                      "STOP Recording",
+                      style: TextStyle(color: Colors.white),
+                    )
+                  : Text(
+                      "START Recording",
+                      style: TextStyle(color: Colors.white),
+                    )
+            ])));
   }
 }

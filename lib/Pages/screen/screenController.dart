@@ -8,6 +8,10 @@ class ScreenController extends StatefulWidget {
 class _ScreenControllerState extends State<ScreenController> {
   @override
   Widget build(BuildContext context) {
-    return Text("Comming Soon");
+    return Center(
+        child: Text(
+      "Comming Soon",
+      style: TextStyle(color: Colors.white, fontSize: 10),
+    ));
   }
 }
