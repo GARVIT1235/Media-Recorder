@@ -18,6 +18,11 @@ dependencies:
   video_player:
   path_provider:
   permission_handler:
+  amplify_flutter :
+  amplify_auth_cognito:
+  amplify_analytics_pinpoint:
+  amplify_storage_s3:
+  image_picker :
 
 dev_dependencies:
   flutter_test:

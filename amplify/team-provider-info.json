@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-mediarecorder-dev-145547-authRole",
+      "UnauthRoleArn": "arn:aws:iam::516628574584:role/amplify-mediarecorder-dev-145547-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::516628574584:role/amplify-mediarecorder-dev-145547-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-mediarecorder-dev-145547-deployment",
+      "UnauthRoleName": "amplify-mediarecorder-dev-145547-unauthRole",
+      "StackName": "amplify-mediarecorder-dev-145547",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:516628574584:stack/amplify-mediarecorder-dev-145547/68756140-21d0-11ec-8a2d-068ab05c76d0",
+      "AmplifyAppId": "d13e4m8u9p4ou6"
+    },
+    "categories": {
+      "auth": {
+        "mediarecorderfc602280": {}
+      }
+    }
+  }
+}

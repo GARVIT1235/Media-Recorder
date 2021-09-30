@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 class AudioController extends StatefulWidget {
@@ -8,7 +9,8 @@ class AudioController extends StatefulWidget {
 class _AudioControllerState extends State<AudioController> {
   bool isRecording = false;
   final path = 'audio.mp3';
-  String time = " 00:00 ";
+  Duration duration = Duration();
+  Timer timer;
 
   @override
   void initState() {
@@ -17,6 +19,9 @@ class _AudioControllerState extends State<AudioController> {
 
   @override
   Widget build(BuildContext context) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
     return Scaffold(
         backgroundColor: Color(0xff172133),
         appBar: AppBar(
@@ -39,7 +44,7 @@ class _AudioControllerState extends State<AudioController> {
             alignment: Alignment.center,
             child: Column(children: [
               Text(
-                time,
+                '$minutes:$seconds',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -65,6 +70,7 @@ class _AudioControllerState extends State<AudioController> {
                     onPressed: () {
                       setState(() {
                         isRecording = !isRecording;
+                        isRecording ? reset() : startTimer();
                       });
                     },
                   ),
@@ -81,5 +87,21 @@ class _AudioControllerState extends State<AudioController> {
                       style: TextStyle(color: Colors.white),
                     )
             ])));
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(Duration(seconds: 1), (_) => addTimer());
+  }
+
+  addTimer() {
+    final aSecond = 1;
+    setState(() {
+      final second = duration.inSeconds + aSecond;
+      duration = Duration(seconds: second);
+    });
+  }
+
+  reset() {
+    setState(() => duration = Duration());
   }
 }
