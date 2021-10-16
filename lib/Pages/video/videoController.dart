@@ -1,15 +1,7 @@
-//import 'package:amazon_s3_cognito/amazon_s3_cognito.dart';
-//import 'package:amazon_s3_cognito/aws_region.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'videoView.dart';
 import 'cameraView.dart';
-import 'dart:io';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import '../../amplifyconfiguration.dart';
 
 class VideoController extends StatefulWidget {
   @override
@@ -104,7 +96,6 @@ class _VideoControllerState extends State<VideoController> {
                           setState(() {
                             VideoOn = false;
                           });
-                          createAndUploadFile();
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -176,33 +167,4 @@ class _VideoControllerState extends State<VideoController> {
     _cameraController = CameraController(cameras[1], ResolutionPreset.high);
     cameraValue = _cameraController.initialize();
   }
-
-  Future<void> createAndUploadFile() async {
-    // Create a dummy file
-    final exampleString = 'Example file contents';
-    final tempDir = await getTemporaryDirectory();
-    final exampleFile = File(tempDir.path + '/example.txt')
-      ..createSync()
-      ..writeAsStringSync(exampleString);
-
-    // Upload the file to S3
-    try {
-      final UploadFileResult result = await Amplify.Storage.uploadFile(
-        local: exampleFile,
-        key: 'ExampleKey',
-      );
-      print('Successfully uploaded file: ${result.key}');
-    } on StorageException catch (e) {
-      print('Error uploading file: $e');
-    }
-  }
-/*Future<void> sendFile(XFile path) async {
-    String uploadedImageUrl = await AmazonS3Cognito.upload(
-        path.path,
-        "video-storage-demo",
-        "ap-south-1:1d50d6a9-bf31-4b90-bb94-6f2ee1ef5f4b",
-        "image",
-        AwsRegion.US_EAST_1,
-        AwsRegion.AP_SOUTHEAST_1);
-  }*/
 }
